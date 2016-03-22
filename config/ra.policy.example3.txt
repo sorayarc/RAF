@@ -1,0 +1,17 @@
+
+// Fichero ejemplo de ra.policy
+
+
+// Grant all files all permissions
+
+grant codeBase "file:" {
+  permission java.security.AllPermission;
+};
+
+
+// todos los agentes que viene desde la direccion y el puerto indicado tiene todos los derechos
+
+grant codeBase "http://192.168.0.1/:10101" {
+  permission java.security.AllPermission; 
+};
+

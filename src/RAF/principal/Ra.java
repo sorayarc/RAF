@@ -23,6 +23,10 @@ public class Ra implements Runnable, Serializable
     class FireEventThread extends Thread implements Serializable{
 
         /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		/**
          * El evento que tiene que ser lanzado.
          */
         private RaEvent event;

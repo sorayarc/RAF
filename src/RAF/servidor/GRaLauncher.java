@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
@@ -30,7 +29,9 @@ public class GRaLauncher extends JFrame implements ActionListener,
     /**
      * Donde esta la configuracion del servidor.
      */
-    String strConfigFile =  "raf" 
+    String strConfigFile =  "src"
+    					  + File.separator
+    					  +"raf" 
                           + File.separator
                           + "config"
                           + File.separator
@@ -198,7 +199,7 @@ public class GRaLauncher extends JFrame implements ActionListener,
      */
     public static void main(String[] args){
 
-        try {
+        try { 
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         }
         catch (Exception e) {
@@ -250,9 +251,9 @@ public class GRaLauncher extends JFrame implements ActionListener,
          int i;
               i=0; 
                  Object[] v = new Object[50];
-                 Enumeration enum = raAgency.getServers(this).elements();
-                 while (enum.hasMoreElements()){
-                 v[i] = (Object) enum.nextElement();
+                 Enumeration enum1 = raAgency.getServers(this).elements();
+                 while (enum1.hasMoreElements()){
+                 v[i] = (Object) enum1.nextElement();
                    i = i + 1;
                  }
 		String s = (String) JOptionPane.showInputDialog(

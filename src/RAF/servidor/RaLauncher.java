@@ -29,7 +29,9 @@ public class RaLauncher {
     /**
      * Donde estan las configuraciones para el servidor.
      */
-    String strConfigFile = "raf"
+    String strConfigFile = "src"
+    					  + File.separator
+    					  +	"raf"
                           + File.separator
                           + "config"
                           + File.separator

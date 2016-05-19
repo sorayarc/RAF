@@ -8,6 +8,7 @@ import java.net.UnknownHostException;
 import java.util.Hashtable;
 import java.security.CodeSource;
 import java.security.SecureClassLoader;
+import java.security.cert.Certificate;
 
 
 
@@ -38,8 +39,6 @@ public class RaClassLoader extends SecureClassLoader{
     throws ClassNotFoundException{
         byte result[] = null;
         Socket socket = null;
-        InputStream inputStream = null;
-        OutputStream outputStream = null;
 
         System.out.println("RaClassLoader.loadClassData() ha sido llamado por: " + name);
 
@@ -101,7 +100,9 @@ public class RaClassLoader extends SecureClassLoader{
   
          
             URL srcURL = new URL ("http", sourceHost.host.getHostAddress(), sourceHost.port, "/");
-            CodeSource codeSrc = new CodeSource (srcURL, null); 
+            
+            //Error corregido, añadida variable Certificate para que el constructor funcione
+            CodeSource codeSrc = new CodeSource(srcURL, (java.security.cert.Certificate[]) null);
             c = defineClass (name, data, 0, data.length, codeSrc);
         }
 	catch (java.net.MalformedURLException e) {

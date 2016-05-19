@@ -20,7 +20,7 @@ public class RaAgency
     private Object parent;
 
   
-    private Hashtable agencys;
+    private Hashtable<?, ?> agencys;
 
     
 

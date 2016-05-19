@@ -1,0 +1,20 @@
+Configuration files for Kaariboga
+
+- boga.config 
+	Settings for the main server, that handles the agents
+
+- domainserver.config
+	Settings for the domain server, used to connect
+	several computers to a domain.
+
+- domainPlugIn.config
+        Settings for the example plug-in domainPlugIn
+
+- kaariboga.policy
+	Security settings.
+
+
+Dirk Struve, 2002-09-01
+
+
+

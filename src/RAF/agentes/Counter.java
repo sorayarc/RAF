@@ -1,9 +1,8 @@
-package org.kaariboga.agents;
+package raf.agentes;
 
 import java.lang.Thread;
 
 import org.kaariboga.core.Kaariboga;
-import org.kaariboga.core.KaaribogaEvent;
 
 
 /**

@@ -1,0 +1,19 @@
+
+// Example file for kaariboga.policy
+
+
+// Grant all files all permissions
+
+grant codeBase "file:" {
+  permission java.security.AllPermission;
+};
+
+
+// All kaariboga agents coming from the
+// domain kaariboga.org get unrestricted
+// rights.
+
+grant codeBase "http://*.kaariboga.org/" {
+  permission java.security.AllPermission; 
+};
+

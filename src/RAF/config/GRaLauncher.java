@@ -1,5 +1,5 @@
 
-package raf.servidor;
+package raf.config;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -31,7 +31,9 @@ public class GRaLauncher extends JFrame implements ActionListener,
     /**
      * Donde esta la configuracion del servidor.
      */
-    String strConfigFile =  "raf" 
+    String strConfigFile =  "src"
+    					  + File.separator
+    				      + "raf" 
                           + File.separator
                           + "config"
                           + File.separator
@@ -249,9 +251,9 @@ public class GRaLauncher extends JFrame implements ActionListener,
          int i;
               i=0; 
                  Object[] v = new Object[50];
-                 Enumeration enum = raAgency.getServers(this).elements();
-                 while (enum.hasMoreElements()){
-                 v[i] = (Object) enum.nextElement();
+                 Enumeration enum1 = raAgency.getServers(this).elements();
+                 while (enum1.hasMoreElements()){
+                 v[i] = (Object) enum1.nextElement();
                    i = i + 1;
                  }
 		String s = (String) JOptionPane.showInputDialog(

@@ -10,7 +10,7 @@ package raf.principal;
 public class AgencyEvent extends java.util.EventObject
 {
     /**
-     * ombre del agente que ha sido  añadido o borrado de la agencia.
+     * Nombre del agente que ha sido  añadido o borrado de la agencia.
      */
     private String name;
 

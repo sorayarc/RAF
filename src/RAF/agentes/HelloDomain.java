@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.lang.InterruptedException;
 import java.util.Enumeration;
 import java.util.Vector;
+
 import javax.swing.*;
 
 import raf.principal.Ra;
@@ -44,9 +45,9 @@ public class HelloDomain extends Ra
         i = 0;
         v = new Vector();
         RaAddress address;
-        Enumeration enum = agency.getServers(this).elements();
-        while (enum.hasMoreElements()){
-           address = (RaAddress) enum.nextElement();
+        Enumeration enum1 = agency.getServers(this).elements();
+        while (enum1.hasMoreElements()){
+           address = (RaAddress) enum1.nextElement();
             v.addElement (address);
          
         }
@@ -86,11 +87,15 @@ public class HelloDomain extends Ra
     public class Popup extends Thread implements Serializable{
 
         /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		/**
          * Pop up window.
          */
         public void run(){
-            JOptionPane dialog = new JOptionPane();
-            dialog.showMessageDialog (null, "Hi there!");
+            JOptionPane.showMessageDialog (null, "Hi there!");
         }
     }
 

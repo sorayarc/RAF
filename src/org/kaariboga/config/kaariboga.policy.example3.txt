@@ -1,0 +1,19 @@
+
+// Example file for kaariboga.policy
+
+
+// Grant all files all permissions
+
+grant codeBase "file:" {
+  permission java.security.AllPermission;
+};
+
+
+// All kaariboga agents coming from 
+// 192.168.0.1 and port number 10101
+// get unrestricted rights.
+
+grant codeBase "http://192.168.0.1/:10101" {
+  permission java.security.AllPermission; 
+};
+

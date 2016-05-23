@@ -1,2 +1,0 @@
-This applet will be a kaariboga base
-capable of running in Java enabled web browsers.

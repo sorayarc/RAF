@@ -13,11 +13,11 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
 import java.util.Properties;
-
 import javax.swing.*;
 import javax.swing.event.*;
 
 import raf.principal.*;
+import raf.messages.*;
 
 
 /**
@@ -227,7 +227,7 @@ public class GRaLauncher extends JFrame implements ActionListener,
      * Maneja los eventos de menu
      */
     public void actionPerformed (ActionEvent e){
-        if ( e.getActionCommand().equals ("Cargar...") ) {
+        if ( e.getActionCommand().equals (MessagesEv.LOAD) ) {
            
             File agentsPath = new File ( File.separator + "raf" + File.separator + "agentes" + File.separator );
          //   cargar los nombred de los agentes
@@ -250,7 +250,7 @@ public class GRaLauncher extends JFrame implements ActionListener,
                      }
   
         }
-        if ( e.getActionCommand().equals ("editSendTo") ) {
+        if ( e.getActionCommand().equals (MessagesEv.SEND) ) {
          int i;
               i=0; 
                  Object[] v = new Object[50];
@@ -277,7 +277,7 @@ public class GRaLauncher extends JFrame implements ActionListener,
      
             editSendTo(s);
         }
-        if ( e.getActionCommand().equals ("editDestroy") ) {
+        if ( e.getActionCommand().equals (MessagesEv.DESTROY) ) {
             editDestroy();
         }
        

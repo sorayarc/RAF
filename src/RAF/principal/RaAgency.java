@@ -7,6 +7,8 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
 
+import raf.messages.MessagesEv;
+
 
 public class RaAgency
     implements Serializable, RaListener, RaMessageListener
@@ -105,7 +107,7 @@ public class RaAgency
                     new SendMessageThread(message).start();
                 }
                 else
-                if ( message.kind.equals("RA") ){
+                if ( message.kind.equals(MessagesEv.RA) ){
                     System.out.println ("ReceiveMessageThread: ha llegado un mensage RA.");
                     ByteArrayInputStream bInStream = new ByteArrayInputStream(message.binary);
                     mis = new RaInputStream(classManager, agencyAddress, bInStream, message.sender);
@@ -113,7 +115,7 @@ public class RaAgency
                     //agent.onArrival();
                     addRaOnArrival(agent, address);
                 }
-                else if ( message.kind.equals("AGENCYS") ){
+                else if ( message.kind.equals(MessagesEv.AGENS) ){
                     System.out.println ("ReceiveMessageThread: ha llegado un mensaje AGENCYS.");
                     ByteArrayInputStream bis = new ByteArrayInputStream(message.binary);
                     ObjectInputStream ois = new ObjectInputStream (bis);
@@ -121,7 +123,7 @@ public class RaAgency
                         agencys = (Hashtable<?, ?>) ois.readObject();
                     }
                 }
-                else if ( message.kind.equals("GET_CLASS") ){
+                else if ( message.kind.equals(MessagesEv.GET_C) ){
                     System.out.println ("ReceiveMessageThread: Ha llegado un mensaje GET_CLASS: " + message.content + ".class");
                     byte[] source = classManager.getByteCode (message.content);
                     outMessage = new RaMessage(agencyAddress,
@@ -132,7 +134,7 @@ public class RaAgency
                     outStream.writeObject(outMessage);
                     outStream.flush();
                 }
-                else if (message.kind.equals("GET")){
+                else if (message.kind.equals(MessagesEv.GET)){
                        RaBox target = (RaBox) boxes.get(message.content);
                     if (target != null){
                         target.ra.onDispatch();

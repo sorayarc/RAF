@@ -1,11 +1,8 @@
 package raf.agentes;
 
-import java.lang.InterruptedException;
 import java.util.Enumeration;
-
 import raf.principal.Ra;
 import raf.principal.RaAddress;
-import raf.principal.RaEvent;
 
 /**
  * Utility agent that prints out a list of all servers connected to the domain.
@@ -16,6 +13,11 @@ import raf.principal.RaEvent;
 public class ServerLister extends Ra
 {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Just initialize the super class.
      *
      * @param name The name of the agent. This name has to be
@@ -31,7 +33,7 @@ public class ServerLister extends Ra
      */
     public void run(){
         RaAddress address;
-        Enumeration enum1 = agency.getServers(this).elements();
+        Enumeration<?> enum1 = agency.getServers(this).elements();
         System.out.println("---------------------------------------------");
         System.out.println("Servers connected to the domain:");
         while (enum1.hasMoreElements()){

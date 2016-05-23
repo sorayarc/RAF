@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 
+@SuppressWarnings("serial")
 public final class RaAddress implements Serializable{
     
    

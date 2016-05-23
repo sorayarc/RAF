@@ -1,15 +1,12 @@
 package raf.agentes;
 
 import java.io.Serializable;
-import java.lang.InterruptedException;
 import java.util.Enumeration;
 import java.util.Vector;
-
 import javax.swing.*;
-
 import raf.principal.Ra;
 import raf.principal.RaAddress;
-import raf.principal.RaEvent;
+
 
 /**
  * Pops up a hello Window on every server in the domain when
@@ -18,9 +15,14 @@ import raf.principal.RaEvent;
 public class HelloDomain extends Ra
 {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * List of all the servers in the domain.
      */
-    Vector v;
+    Vector<RaAddress> v;
 
     /**
      * Points to the next destination in v.
@@ -43,9 +45,9 @@ public class HelloDomain extends Ra
      */
     public void onCreate(){
         i = 0;
-        v = new Vector();
+        v = new Vector<RaAddress>();
         RaAddress address;
-        Enumeration enum1 = agency.getServers(this).elements();
+        Enumeration<?> enum1 = agency.getServers(this).elements();
         while (enum1.hasMoreElements()){
            address = (RaAddress) enum1.nextElement();
             v.addElement (address);

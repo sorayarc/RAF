@@ -12,6 +12,12 @@ public class RaAgency
     implements Serializable, RaListener, RaMessageListener
 {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+	/**
      * No usado.
      */
     public final int version = 0;
@@ -27,7 +33,7 @@ public class RaAgency
     private RaAddress raServer;
 
   
-    private Vector agencyListeners;
+    private Vector<AgencyListener> agencyListeners;
 
    
     long delay = 100000;
@@ -48,19 +54,27 @@ public class RaAgency
     protected ClassManager classManager;
 
    
-    Hashtable boxes;
+    Hashtable<String, RaBox> boxes;
 
     
     ServerSocket serverSocket = null;
 
+
+	private RaOutputStream mos;
+
    
     class ReceiveMessageThread extends Thread implements Serializable{
-        private Socket socket;
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		private Socket socket;
         private RaAgency agency;
         private RaMessage message;
         private RaMessage outMessage;
         private InetAddress address;
         private Ra agent;
+		private RaInputStream mis;
 
        
         public ReceiveMessageThread(RaAgency b, Socket socket){
@@ -94,7 +108,7 @@ public class RaAgency
                 if ( message.kind.equals("RA") ){
                     System.out.println ("ReceiveMessageThread: ha llegado un mensage RA.");
                     ByteArrayInputStream bInStream = new ByteArrayInputStream(message.binary);
-                    RaInputStream mis = new RaInputStream(classManager, agencyAddress, bInStream, message.sender);
+                    mis = new RaInputStream(classManager, agencyAddress, bInStream, message.sender);
                     agent = (Ra) mis.readObject();
                     //agent.onArrival();
                     addRaOnArrival(agent, address);
@@ -104,7 +118,7 @@ public class RaAgency
                     ByteArrayInputStream bis = new ByteArrayInputStream(message.binary);
                     ObjectInputStream ois = new ObjectInputStream (bis);
                     synchronized (this){
-                        agencys = (Hashtable) ois.readObject();
+                        agencys = (Hashtable<?, ?>) ois.readObject();
                     }
                 }
                 else if ( message.kind.equals("GET_CLASS") ){
@@ -189,7 +203,11 @@ public class RaAgency
 
     class ListenThread extends Thread implements Serializable
     {
-        private RaAgency parent;
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		private RaAgency parent;
         private Socket socket = null;
 
         public ListenThread (RaAgency parent){
@@ -215,7 +233,11 @@ public class RaAgency
 
 
     protected class SendMessageThread extends Thread implements Serializable{
-        RaMessage msg;
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		RaMessage msg;
 
         
         public SendMessageThread(RaMessage msg){
@@ -256,8 +278,8 @@ public class RaAgency
  
     public RaAgency (Object parent, ClassManager clManager){
         this.parent = parent;
-        agencyListeners = new Vector();
-        boxes = new Hashtable();
+        agencyListeners = new Vector<AgencyListener>();
+        boxes = new Hashtable<String, RaBox>();
         classManager = clManager;
     }
 
@@ -282,7 +304,7 @@ public class RaAgency
                                          port, ra.getName());
 
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            RaOutputStream mos = new RaOutputStream(bos);
+            mos = new RaOutputStream(bos);
             mos.writeObject (ra);
 
             msg = new RaMessage(msgSender, address, "RA", "", bos.toByteArray());
@@ -353,7 +375,7 @@ public class RaAgency
     }
 
   
-    public Enumeration getRaNames(Object sender){
+    public Enumeration<String> getRaNames(Object sender){
         return boxes.keys();
     }
 
@@ -465,10 +487,10 @@ public class RaAgency
         }
     }
 
-    public Hashtable getServers (Object sender){
-        Hashtable result = null;
+    public Hashtable<?, ?> getServers (Object sender){
+        Hashtable<?, ?> result = null;
         synchronized (this){
-            if (agencys != null) result = (Hashtable) agencys.clone();
+            if (agencys != null) result = (Hashtable<?, ?>) agencys.clone();
         }
         return result;
     }
@@ -485,10 +507,11 @@ public class RaAgency
     }
 
    
-    protected void fireRaCreated (String name){
-        Vector listeners;
+    @SuppressWarnings("unchecked")
+	protected void fireRaCreated (String name){
+        Vector<AgencyListener> listeners;
         synchronized (this){
-            listeners = (Vector) agencyListeners.clone();
+            listeners = (Vector<AgencyListener>) agencyListeners.clone();
         }
         int size = listeners.size();
 
@@ -501,10 +524,11 @@ public class RaAgency
     }
 
    
-    protected void fireRaArrived (String name){
-        Vector listeners;
+    @SuppressWarnings("unchecked")
+	protected void fireRaArrived (String name){
+        Vector<AgencyListener> listeners;
         synchronized (this){
-            listeners = (Vector) agencyListeners.clone();
+            listeners = (Vector<AgencyListener>) agencyListeners.clone();
         }
         int size = listeners.size();
 
@@ -518,10 +542,11 @@ public class RaAgency
 
    
 
-    protected void fireRaDestroyed (String name){
-        Vector listeners;
+    @SuppressWarnings("unchecked")
+	protected void fireRaDestroyed (String name){
+        Vector<AgencyListener> listeners;
         synchronized (this){
-            listeners = (Vector) agencyListeners.clone();
+            listeners = (Vector<AgencyListener>) agencyListeners.clone();
         }
         int size = listeners.size();
 
@@ -534,10 +559,11 @@ public class RaAgency
     }
 
    
-    protected void fireRaLeft (String name){
-        Vector listeners;
+    @SuppressWarnings("unchecked")
+	protected void fireRaLeft (String name){
+        Vector<AgencyListener> listeners;
         synchronized (this){
-            listeners = (Vector) agencyListeners.clone();
+            listeners = (Vector<AgencyListener>) agencyListeners.clone();
         }
         int size = listeners.size();
 

@@ -14,6 +14,12 @@ public class Ra implements Runnable, Serializable
 {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+	/**
      * Lanza eventos de agente al RaListener.
      * Este thread se encesita para lanzar eventos de un modo asincrono.
      * Los eventos son asincronos debido a que el resultado de un evento
@@ -67,6 +73,10 @@ public class Ra implements Runnable, Serializable
     class FireMessageThread extends Thread implements Serializable{
 
         /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		/**
          * El evento que va a ser lanzado.
          */
         private RaMessageEvent e;

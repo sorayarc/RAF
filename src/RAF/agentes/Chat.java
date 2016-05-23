@@ -98,6 +98,10 @@ public class Chat extends Ra
     /**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
 	JTextArea textPane;
     JTextArea changeLog;
     String newline;

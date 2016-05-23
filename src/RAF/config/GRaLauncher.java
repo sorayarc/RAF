@@ -7,18 +7,16 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
 import java.util.Properties;
-import java.util.Vector;
+
 import javax.swing.*;
 import javax.swing.event.*;
 
-import raf.agentes.*;
 import raf.principal.*;
 
 
@@ -29,6 +27,11 @@ public class GRaLauncher extends JFrame implements ActionListener,
                                             ListSelectionListener,
                                             AgencyListener{
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Donde esta la configuracion del servidor.
      */
     String strConfigFile =  "src"
@@ -47,8 +50,8 @@ public class GRaLauncher extends JFrame implements ActionListener,
     //JFileChooser fileChooser;
     JPanel panel = new JPanel();
 
-    JList list;
-    DefaultListModel listModel;
+    JList<String> list;
+    DefaultListModel<String> listModel;
     JScrollPane listScroller;
 
     /**
@@ -176,8 +179,8 @@ public class GRaLauncher extends JFrame implements ActionListener,
         panel.setLayout (new GridLayout(1,1));
         panel.setPreferredSize(new java.awt.Dimension(500, 300));
 
-        listModel = new DefaultListModel();
-        list = new JList (listModel);
+        listModel = new DefaultListModel<String>();
+        list = new JList<String> (listModel);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.addListSelectionListener(this);
         listScroller = new JScrollPane (list);
@@ -251,7 +254,7 @@ public class GRaLauncher extends JFrame implements ActionListener,
          int i;
               i=0; 
                  Object[] v = new Object[50];
-                 Enumeration enum1 = raAgency.getServers(this).elements();
+                 Enumeration<?> enum1 = raAgency.getServers(this).elements();
                  while (enum1.hasMoreElements()){
                  v[i] = (Object) enum1.nextElement();
                    i = i + 1;

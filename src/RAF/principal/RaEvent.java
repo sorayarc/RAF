@@ -4,7 +4,13 @@ package raf.principal;
 public class RaEvent extends java.util.EventObject
 {
     
-    public static final int DISPATCH_REQUEST = 1;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+	public static final int DISPATCH_REQUEST = 1;
     
     
     public static final int SLEEP_REQUEST = 2;

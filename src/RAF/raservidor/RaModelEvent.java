@@ -9,6 +9,10 @@ import raf.principal.RaAddress;
 public class RaModelEvent extends java.util.EventObject{
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
      * Direccion de la agencia que se desconecta o desconecta del dominio.
      */
     RaAddress agency;

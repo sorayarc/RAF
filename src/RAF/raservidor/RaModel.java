@@ -40,7 +40,8 @@ public class RaModel
         /**
          * Maneja el mensaje de entrada.
          */
-        public void run(){
+        @SuppressWarnings("unchecked")
+		public void run(){
             ObjectOutputStream outStream = null;
             ObjectInputStream inStream = null;
 
@@ -50,7 +51,7 @@ public class RaModel
                                     socket.getInputStream()));
                 outStream = new ObjectOutputStream(
                                     socket.getOutputStream());
-                address = socket.getInetAddress();
+                setAddress(socket.getInetAddress());
             }
             catch (IOException e){
                 System.err.println("ReceiveMessageThread: IOException en los  streams de conexion al socket!");
@@ -92,6 +93,22 @@ public class RaModel
                 System.err.println("ReceiveMessageThread: IOException en el limpiado!");
             }
         }
+
+		public RaMessage getOutMessage() {
+			return outMessage;
+		}
+
+		public void setOutMessage(RaMessage outMessage) {
+			this.outMessage = outMessage;
+		}
+
+		public InetAddress getAddress() {
+			return address;
+		}
+
+		public void setAddress(InetAddress address) {
+			this.address = address;
+		}
     } // ReceiveMessageThread
 
 
@@ -182,7 +199,8 @@ public class RaModel
     /**
      * Todas las agencias conectadas en el dominio
      */
-    Hashtable agencys;
+    @SuppressWarnings("rawtypes")
+	Hashtable agencys;
 
     /**
      * Direccion de este servidor.
@@ -208,7 +226,7 @@ public class RaModel
      * Crea un nuevo servidor que maneja el estado del dominio.
      */
     public RaModel(){
-        agencys = new Hashtable();
+        agencys = new Hashtable<Object, RaAddress>();
     }
 
     /**
@@ -231,22 +249,23 @@ public class RaModel
      * estan en linea en el dominio
      */
      
-     public void broadcast(){
+     @SuppressWarnings("unchecked")
+	public void broadcast(){
         RaMessage message = null;
-        Hashtable servers = null;
+        Hashtable<Object, RaAddress> servers = null;
         ByteArrayOutputStream bos = null;
         ObjectOutputStream oos = null;
 
         try{
             synchronized (this){
-                servers = (Hashtable) agencys.clone();
+                servers = (Hashtable<Object, RaAddress>) agencys.clone();
             }
             bos = new ByteArrayOutputStream();
             oos = new ObjectOutputStream (bos);
             oos.writeObject (servers);
 
             // envia un mensaje AGENCYS a todos los servidores conectados.
-            for (Enumeration e = servers.elements(); e.hasMoreElements();){
+            for (Enumeration<RaAddress> e = servers.elements(); e.hasMoreElements();){
                 message = new RaMessage (raAddress,
                                             (RaAddress)e.nextElement(),
                                             "AGENCYS",

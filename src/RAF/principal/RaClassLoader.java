@@ -1,14 +1,11 @@
 package raf.principal;
 
 import java.io.*;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
-import java.util.Hashtable;
 import java.security.CodeSource;
 import java.security.SecureClassLoader;
-import java.security.cert.Certificate;
 
 
 
@@ -78,12 +75,12 @@ public class RaClassLoader extends SecureClassLoader{
     }
 
    
-    public Class findClass(String name)
+    public Class<?> findClass(String name)
     throws ClassNotFoundException {
     
         System.out.println("Ha sido llamado findClass en RaClassLoader!! " + name);
 
-	Class c = classManager.getClass(name);
+	Class<?> c = classManager.getClass(name);
         if (c != null) {
             System.out.println("Recuperando la clase desde cache: " + name);
             classManager.inc(name);

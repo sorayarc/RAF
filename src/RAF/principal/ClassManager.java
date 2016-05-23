@@ -6,8 +6,6 @@ import java.lang.StringIndexOutOfBoundsException;
 import java.lang.Thread;
 import java.util.Hashtable;
 
-import raf.principal.ClassManager.ClassBox;
-
 
 /**
  * Almacena las clases y los bytecodes de las clases cargadas.
@@ -25,7 +23,7 @@ public class ClassManager
         /**
          * La clase cargada.
          */
-        public Class classCode;
+        public Class<?> classCode;
 
         /**
          * Los correspondientes bytecodes de la clase cargada.
@@ -44,7 +42,7 @@ public class ClassManager
          * @param cl La clase que va a ser almacenada.
          * @param byteCode El byte code de la clase.
          */
-        public ClassBox (Class cl, byte[] byteCode){
+        public ClassBox (Class<?> cl, byte[] byteCode){
             this.classCode = cl;
             this.byteCode = byteCode;
             count = 1;
@@ -122,7 +120,7 @@ public class ClassManager
      * @param cl La clase en si misma.
      * @param byteCode Byte code de la clase.
      */
-    public void addClass (String name, Class cl, byte[] byteCode){
+    public void addClass (String name, Class<?> cl, byte[] byteCode){
         ClassBox cb = new ClassBox (cl, byteCode);
         cache.put (name, cb);
     }
@@ -139,7 +137,7 @@ public class ClassManager
     /**
      * Borra la clase indicada
      */
-    public Class getClass (String name){
+    public Class<?> getClass (String name){
     	ClassBox box = (ClassBox) cache.get(name);
     	System.out.println(cache.get(name));
 	    if (box != null){
@@ -157,9 +155,7 @@ public class ClassManager
 	        return box.byteCode;
 	    }
 	    else { // intenta cargar desde un fichero el nombre del fichero indicado
-            int begin = 12; // longitud del raf.agentes.;
             String fileName;
-            String directory = (String) name;
             try {
                 fileName = "bin/raf/agentes/Chat.class";
                 System.out.println("Fichero: " + fileName);

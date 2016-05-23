@@ -3,6 +3,7 @@ package raf.principal;
 import java.io.Serializable;
 
 
+@SuppressWarnings("serial")
 public class RaMessage implements Serializable{
   
     public int version;

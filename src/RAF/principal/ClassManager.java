@@ -6,6 +6,8 @@ import java.lang.StringIndexOutOfBoundsException;
 import java.lang.Thread;
 import java.util.Hashtable;
 
+import raf.principal.ClassManager.ClassBox;
+
 
 /**
  * Almacena las clases y los bytecodes de las clases cargadas.
@@ -93,7 +95,7 @@ public class ClassManager
     /**
      * Stores class data in ClassBoxes.
      */
-    Hashtable cache;
+    Hashtable<String, ClassBox> cache;
 
     /*
      * Tiempo de espera en milisegundos antes de que se borre una clase del
@@ -108,7 +110,7 @@ public class ClassManager
      * clase sea borada despues de que su contador haya llegado a cero.
      */
     public ClassManager(long delay, String agentsPath){
-        cache = new Hashtable();
+        cache = new Hashtable<String, ClassBox>();
         this.delay = delay;
         this.agentsPath = agentsPath;
     }
@@ -139,6 +141,7 @@ public class ClassManager
      */
     public Class getClass (String name){
     	ClassBox box = (ClassBox) cache.get(name);
+    	System.out.println(cache.get(name));
 	    if (box != null){
 	        return box.classCode;
 	    }
@@ -156,8 +159,9 @@ public class ClassManager
 	    else { // intenta cargar desde un fichero el nombre del fichero indicado
             int begin = 12; // longitud del raf.agentes.;
             String fileName;
+            String directory = (String) name;
             try {
-                fileName = agentsPath + name.substring(begin) + ".class";
+                fileName = "bin/raf/agentes/Chat.class";
                 System.out.println("Fichero: " + fileName);
             }
             catch (StringIndexOutOfBoundsException e){

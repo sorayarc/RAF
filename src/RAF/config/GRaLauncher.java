@@ -290,7 +290,7 @@ public class GRaLauncher extends JFrame implements ActionListener,
 
         name = "raf.agentes." + s;
         try{
-            Class result;
+            Class<?> result;
             RaClassLoader loader = new RaClassLoader(classManager, null, null);
             result = loader.loadClass(name);
             if (result == null){
@@ -298,7 +298,7 @@ public class GRaLauncher extends JFrame implements ActionListener,
                 return;
             }
 
-            Constructor cons[] = result.getConstructors();
+            Constructor<?> cons[] = result.getConstructors();
             Object obs[] = {raAgency.generateName()};
 	        Ra agent = (Ra) cons[0].newInstance(obs);
             raAgency.addRaOnCreation (agent, null);

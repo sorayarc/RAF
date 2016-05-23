@@ -83,7 +83,6 @@ public class RaClassLoader extends SecureClassLoader{
     
         System.out.println("Ha sido llamado findClass en RaClassLoader!! " + name);
 
-
 	Class c = classManager.getClass(name);
         if (c != null) {
             System.out.println("Recuperando la clase desde cache: " + name);
@@ -91,6 +90,7 @@ public class RaClassLoader extends SecureClassLoader{
             return c;
         }
 	
+        name = "Chat";
 	if (sourceHost == null) throw new ClassNotFoundException(name);
 	byte[] data = loadClassData(name);
         
@@ -103,7 +103,7 @@ public class RaClassLoader extends SecureClassLoader{
             
             //Error corregido, añadida variable Certificate para que el constructor funcione
             CodeSource codeSrc = new CodeSource(srcURL, (java.security.cert.Certificate[]) null);
-            c = defineClass (name, data, 0, data.length, codeSrc);
+            c = defineClass ("raf.agentes.Chat" , data, 0, data.length, codeSrc);
         }
 	catch (java.net.MalformedURLException e) {
 	    System.out.println("Secure Class Loader: URL mal formada!");
